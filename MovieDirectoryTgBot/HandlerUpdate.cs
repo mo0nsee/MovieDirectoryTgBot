@@ -28,12 +28,13 @@ namespace MovieDirectoryTgBot
                             {
                                 case MessageType.Text:
                                 {
-                                    HandlerText(update.Message);
+                                    HandlerText handlerText = new HandlerText(update.Message);
+                                    await handlerText.HandlerCommand();
                                     return;
                                 }
                                 default:
                                 {
-                                    await Program.botClient.SendMessage(
+                                    await Program.BotClient.SendMessage(
                                         update.Message.Chat.Id,
                                         "Используй только текст!");
                                     return;
@@ -45,20 +46,6 @@ namespace MovieDirectoryTgBot
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-            }
-        }
-
-        /// <summary>
-        /// Обработка сообщений в виде текст
-        /// </summary>
-        /// <returns></returns>
-        private async Task HandlerText(Message message)
-        {
-            //Создание клавиатуры при запуске бота
-            if (message.Text == "/start")
-            {
-                HandlerText handlerText = new HandlerText();
-                await Program.botClient.SendMessage(message.Chat.Id, $"Приветствую, рад познакомиться с тобой {message.Chat.Username}", replyMarkup: handlerText.StartBot());
             }
         }
     }
