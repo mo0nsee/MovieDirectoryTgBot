@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using static MovieDirectoryTgBot.HandlerText;
 
 namespace MovieDirectoryTgBot
 {
@@ -28,6 +29,8 @@ namespace MovieDirectoryTgBot
                             {
                                 case MessageType.Text:
                                 {
+                                    if(!Program.UserStates.ContainsKey(update.Message.Chat.Id))
+                                        Program.UserStates.Add(update.Message.Chat.Id, UserState.None);
                                     HandlerText handlerText = new HandlerText(update.Message);
                                     await handlerText.HandlerCommand();
                                     return;

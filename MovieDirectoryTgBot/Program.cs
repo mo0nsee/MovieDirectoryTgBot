@@ -6,6 +6,7 @@ using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using static MovieDirectoryTgBot.HandlerText;
 using static Telegram.Bot.TelegramBotClient;
 
 public class Program
@@ -24,6 +25,11 @@ public class Program
 
     // Это объект с настройками работы бота. Здесь мы будем указывать, какие типы Update мы будем получать, Timeout бота и так далее.
     private static ReceiverOptions _receiverOptions;
+
+    /// <summary>
+    /// Глобальный словарь для хранения состояний
+    /// </summary>
+    public static Dictionary<long, UserState> UserStates = new Dictionary<long, UserState>();
 
     static async Task Main()
     {
